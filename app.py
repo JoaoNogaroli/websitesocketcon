@@ -14,5 +14,6 @@ def index():
                 'teste-ip': request.environ['REMOTE_ADDR'],
                 'teste_remote_user':request.remote_user,
                 'meu_nome': meu_nome,
-                'meu_ip': meu_ip}),200
+                'meu_ip': meu_ip,
+                'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']}),200
 
