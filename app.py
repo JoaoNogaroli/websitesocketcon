@@ -49,10 +49,9 @@ def index():
             'meu_ip': meu_ip,
             'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']})
     except Exception as e:
-        print(e)
+        print("ERROR ",e)
 
-    return jsonify({'ERROR FUNCAO': e,
-            'ip': request.remote_addr,
+    return jsonify({'ip': request.remote_addr,
             'teste-ip': request.environ['REMOTE_ADDR'],
             'teste_remote_user':request.remote_user,
             'meu_nome': meu_nome,
