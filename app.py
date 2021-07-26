@@ -9,6 +9,18 @@ port = int(os.environ.get("PORT",5000))
 def primeiro():
     return "oi"
 
+@app.route("func", methods=["GET"])
+def dois():
+    meu_nome = socket.gethostname()
+    meu_ip = socket.gethostbyname(meu_nome)
+    public_ip = request.environ['HTTP_X_FORWARDED_FOR']
+    return jsonify({'ip': request.remote_addr,
+            'teste-ip': request.environ['REMOTE_ADDR'],
+            'teste_remote_user':request.remote_user,
+            'meu_nome': meu_nome,
+            'meu_ip': meu_ip,
+            'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']}),200
+
 @app.route("/pegar", methods=["GET"])
 @app.route("/pegar")
 def index():
