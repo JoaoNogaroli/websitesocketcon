@@ -5,8 +5,12 @@ import socket
 app = Flask(__name__)
 port = int(os.environ.get("PORT",5000))
 
-@app.route("/", methods=["GET"])
 @app.route("/")
+def primeiro():
+    return "oi"
+
+@app.route("/pegar", methods=["GET"])
+@app.route("/pegar")
 def index():
     meu_nome = socket.gethostname()
     meu_ip = socket.gethostbyname(meu_nome)
