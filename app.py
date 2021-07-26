@@ -41,22 +41,20 @@ def index():
         print(f"Mensagem do SERVIDOR: {s_msg.decode()}")
         c_msg = input("Envie uma mensagem para o servidor ---")
         s.send(c_msg.encode('utf-8'))  
-        return jsonify({
-            'Status_funcao': "FUNCIONOU! ----",
+        return jsonify({'Status_funcao': "FUNCIONOU! ----",
             'ip': request.remote_addr,
             'teste-ip': request.environ['REMOTE_ADDR'],
             'teste_remote_user':request.remote_user,
             'meu_nome': meu_nome,
             'meu_ip': meu_ip,
-            'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']}),200  
+            'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']})
     except Exception as e:
-        return jsonify({
-            'Status_funcao':'NÂO FUNCIONOU !!!',
+        return jsonify({'Status_funcao':'NÂO FUNCIONOU !!!',
             'ERROR FUNCAO': e,
             'ip': request.remote_addr,
             'teste-ip': request.environ['REMOTE_ADDR'],
             'teste_remote_user':request.remote_user,
             'meu_nome': meu_nome,
             'meu_ip': meu_ip,
-            'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']}),200
+            'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']})
     
