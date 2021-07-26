@@ -27,7 +27,7 @@ def index():
     meu_nome = socket.gethostname()
     meu_ip = socket.gethostbyname(meu_nome)
     public_ip = request.environ['HTTP_X_FORWARDED_FOR']
-
+    print(f"PUBLIC IP - > {public_ip}")
     try:    
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
