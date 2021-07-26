@@ -1,4 +1,7 @@
+bidict==0.21.2
 click==7.1.2
+colorama==0.4.4
+firebase==3.0.1
 Flask==1.1.2
 Flask-Cors==3.0.10
 gcloud==0.17.0
@@ -15,7 +18,10 @@ pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycryptodome==3.4.3
 pyparsing==2.4.7
+Pyrebase==3.0.27
+python-engineio==4.2.0
 python-jwt==2.0.1
+python-socketio==5.3.0
 requests==2.11.1
 requests-toolbelt==0.7.0
 rsa==4.7.2
