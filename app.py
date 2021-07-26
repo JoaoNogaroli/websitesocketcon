@@ -9,7 +9,7 @@ port = int(os.environ.get("PORT",5000))
 def primeiro():
     return "oi"
 
-@app.route("func", methods=["GET"])
+@app.route("/func", methods=["GET"])
 def dois():
     meu_nome = socket.gethostname()
     meu_ip = socket.gethostbyname(meu_nome)
