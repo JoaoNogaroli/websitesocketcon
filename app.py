@@ -35,7 +35,7 @@ def index():
         SERVER = public_ip
         PORT = 5050
 
-        s.connect((SERVER,PORT))
+        s.connect(("72.14.176.154",PORT))
         print("Aguardando ---- CLIENTE em processo")
         s_msg = s.recv(1024)
         print(f"Mensagem do SERVIDOR: {s_msg.decode()}")
