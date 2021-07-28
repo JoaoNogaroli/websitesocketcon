@@ -58,14 +58,14 @@ def index():
 
 
 
-    with open(filename, "wb") as f:
+    ''' with open(filename, "wb") as f:
         # read the bytes from the file
         #while True:
         bytes_read = s.recv(BUFFER_SIZE)
         #  if not bytes_read:
         #     break
         f.write(bytes_read)
-        progress.update(len(bytes_read))        
+        progress.update(len(bytes_read))        '''
 
     py_file = "testando.txt"
     with open(py_file, 'wb') as file:
