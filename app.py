@@ -74,7 +74,7 @@ def index():
             as_attachment=True,
             attachment_filename=filename
         )
-
+        s.close()
         return response
     py_file = "testando.txt"
     
