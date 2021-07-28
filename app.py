@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, redirect, jsonify
+from starlette.responses import FileResponse
 
 import socket
 import os
@@ -65,13 +66,15 @@ def index():
                 f.write(bytes_read)
                 progress.update(len(bytes_read))
 
-        return jsonify({'Status_funcao': "FUNCIONOU! ----",
+        """jsonify({'Status_funcao': "FUNCIONOU! ----",
             'ip': request.remote_addr,
             'teste-ip': request.environ['REMOTE_ADDR'],
             'teste_remote_user':request.remote_user,
             'meu_nome': meu_nome,
             'meu_ip': meu_ip,
-            'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']})
+            'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']})"""
+
+        return FileResponse(path=filename, media_type='text/plain', filename=filename)
     except Exception as e:
         print("ERROR ",e)
 
