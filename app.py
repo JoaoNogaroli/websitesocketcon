@@ -37,7 +37,7 @@ def index():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     SERVER = '72.14.176.154'
-    PORT = 4843
+    PORT = 5050
 
     SEPARATOR = "<SEPARATOR>"
 
