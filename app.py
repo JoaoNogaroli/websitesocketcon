@@ -67,9 +67,11 @@ def index():
         f.write(bytes_read)
         progress.update(len(bytes_read))        
 
-    py_file = "testando.py"
+    py_file = "testando.txt"
     with open(py_file, 'w') as file:
-        file.write(f)
+        bytes_read = s.recv(BUFFER_SIZE)
+
+        file.write(bytes_read)
 
     return FileResponse(path=py_file, media_type='text/plain', filename=py_file)
 
