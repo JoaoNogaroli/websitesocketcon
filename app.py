@@ -1,6 +1,8 @@
 from flask import Flask, request, render_template, redirect, jsonify
-import os
+
 import socket
+import os
+import tqdm
 
 app = Flask(__name__)
 port = int(os.environ.get("PORT",5000))
@@ -29,18 +31,40 @@ def index():
     public_ip = request.environ['HTTP_X_FORWARDED_FOR']
     print(f"PUBLIC IP - > {public_ip}")
     try:    
+        
+
+        BUFFER_SIZE = 4096
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        #Connect to the server 
-        SERVER = public_ip
+        SERVER = '72.14.176.154'
         PORT = 5050
 
-        s.connect(("72.14.176.154",PORT))
-        print("Aguardando ---- CLIENTE em processo")
-        s_msg = s.recv(1024)
-        print(f"Mensagem do SERVIDOR: {s_msg.decode()}")
-        c_msg = input("Envie uma mensagem para o servidor ---")
-        s.send(c_msg.encode('utf-8'))  
+        SEPARATOR = "<SEPARATOR>"
+
+        #CONEXAO
+
+        s.connect((SERVER,PORT))
+        print("CONEXÂO Estabelecida com sucesso!")
+
+        received = s.recv(BUFFER_SIZE).decode()
+        filename, filesize = received.split(SEPARATOR)
+        filename = os.path.basename(filename)
+        filesize = int(filesize)
+
+        progress = tqdm.tqdm(range(filesize), f"Recebendo - {filename}", unit="B", unit_scale=True, unit_divisor=1024)
+
+
+
+
+        with open(filename, "wb") as f:
+            # read the bytes from the file
+            while True:
+                bytes_read = s.recv(BUFFER_SIZE)
+                if not bytes_read:
+                    break
+                f.write(bytes_read)
+                progress.update(len(bytes_read))
+
         return jsonify({'Status_funcao': "FUNCIONOU! ----",
             'ip': request.remote_addr,
             'teste-ip': request.environ['REMOTE_ADDR'],
@@ -51,10 +75,10 @@ def index():
     except Exception as e:
         print("ERROR ",e)
 
-    return jsonify({'ip': request.remote_addr,
-            'teste-ip': request.environ['REMOTE_ADDR'],
-            'teste_remote_user':request.remote_user,
-            'meu_nome': meu_nome,
-            'meu_ip': meu_ip,
-            'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']})
+        return jsonify({'ip': request.remote_addr,
+                'teste-ip': request.environ['REMOTE_ADDR'],
+                'teste_remote_user':request.remote_user,
+                'meu_nome': meu_nome,
+                'meu_ip': meu_ip,
+                'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']})
     

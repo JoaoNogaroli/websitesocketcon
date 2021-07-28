@@ -26,4 +26,6 @@ requests==2.11.1
 requests-toolbelt==0.7.0
 rsa==4.7.2
 six==1.15.0
+tdqm==0.0.1
+tqdm==4.61.2
 Werkzeug==1.0.1
