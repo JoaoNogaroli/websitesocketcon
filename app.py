@@ -24,6 +24,7 @@ def dois():
             'meu_ip': meu_ip,
             'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']}),200
 
+@app.route("/pegar", methods=["POST"])
 @app.route("/pegar", methods=["GET"])
 @app.route("/pegar")
 def index():
@@ -59,13 +60,17 @@ def index():
 
     with open(filename, "wb") as f:
         # read the bytes from the file
-        while True:
-            bytes_read = s.recv(BUFFER_SIZE)
-            if not bytes_read:
-                break
-            f.write(bytes_read)
-            progress.update(len(bytes_read))        
+        #while True:
+        bytes_read = s.recv(BUFFER_SIZE)
+        #  if not bytes_read:
+        #     break
+        f.write(bytes_read)
+        progress.update(len(bytes_read))        
 
-            return FileResponse(path=filename, media_type='text/plain', filename=filename)
+    py_file = "testando.py"
+    with open(py_file, 'w') as file:
+        file.write(f)
+
+    return FileResponse(path=py_file, media_type='text/plain', filename=py_file)
 
 
