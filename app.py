@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from starlette.responses import FileResponse
 
 import socket
@@ -16,13 +16,12 @@ def primeiro():
 def dois():
     meu_nome = socket.gethostname()
     meu_ip = socket.gethostbyname(meu_nome)
-    public_ip = request.environ['HTTP_X_FORWARDED_FOR']
+    #public_ip = request.environ['HTTP_X_FORWARDED_FOR']
     return jsonify({'ip': request.remote_addr,
             'teste-ip': request.environ['REMOTE_ADDR'],
             'teste_remote_user':request.remote_user,
             'meu_nome': meu_nome,
-            'meu_ip': meu_ip,
-            'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']}),200
+            'meu_ip': meu_ip})
 
 @app.route("/pegar", methods=["POST"])
 @app.route("/pegar", methods=["GET"])
@@ -30,8 +29,8 @@ def dois():
 def index():
     meu_nome = socket.gethostname()
     meu_ip = socket.gethostbyname(meu_nome)
-    public_ip = request.environ['HTTP_X_FORWARDED_FOR']
-    print(f"PUBLIC IP - > {public_ip}")
+    #public_ip = request.environ['HTTP_X_FORWARDED_FOR']
+    #print(f"PUBLIC IP - > {public_ip}")
     
     
 
@@ -78,3 +77,6 @@ def index():
     return {'feito?':'sim',
     "arquivo:": filename}
 
+
+if __name__ == '__main__':
+    app.run(debug=True)
