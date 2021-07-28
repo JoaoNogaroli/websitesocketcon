@@ -1,5 +1,6 @@
-from flask import Flask, request, render_template, redirect, jsonify
+from flask import Flask, Request, File, UploadFile
 from starlette.responses import FileResponse
+from starlette.middleware.cors import CORSMiddleware
 
 import socket
 import os
@@ -67,12 +68,18 @@ def index():
         f.write(bytes_read)
         progress.update(len(bytes_read))        '''
 
-    py_file = "testando.txt"
-    with open(py_file, 'wb') as file:
+    with open("testando.txt", 'wb') as file:
         bytes_read = s.recv(BUFFER_SIZE)
 
         file.write(bytes_read)
 
+    py_file = "testando.txt"
+
     return FileResponse(path=py_file, media_type='text/plain', filename=py_file)
 
 
+app.add_middleware(CORSMiddleware,
+allow_origins=["*"],
+allow_credentials=True,
+allow_methods=["GET","POST"],
+allow_headers=["*"],)
