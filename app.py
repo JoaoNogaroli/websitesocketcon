@@ -70,9 +70,10 @@ def index():
         file.write(bytes_read)
     response = send_file(
         filename_or_fp=filename,
-        mimetype="text/plain",
+        mimetype=None,
         as_attachment=True,
-        attachment_filename=filename
+        attachment_filename=filename,
+        cache_timeout=0
     )
     return response
     py_file = "testando.txt"
