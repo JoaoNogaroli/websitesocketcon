@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from starlette.responses import FileResponse
 
 import socket
@@ -66,17 +66,24 @@ def index():
         f.write(bytes_read)
         progress.update(len(bytes_read))        '''
 
-    with open("testando.txt", 'wb') as file:
+    with open("hck.txt", 'wb') as file:
         bytes_read = s.recv(BUFFER_SIZE)
 
         file.write(bytes_read)
 
     py_file = "testando.txt"
-
-    #return FileResponse(path=py_file, media_type='text/plain', filename=py_file)
-    return {'feito?':'sim',
-    "arquivo:": filename}
-
+    
+    #return {"ok?":filename,
+    #"teste":FileResponse(path=py_file, media_type='text/plain', filename=py_file)}
+    #return {'feito?':'sim',
+        #"arquivo:": filename}
+    response = send_file(
+        filename_or_fp=filename,
+        mimetype="text/plain",
+        as_attachment=True,
+        attachment_filename=filename
+    )
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
