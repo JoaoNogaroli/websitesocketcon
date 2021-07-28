@@ -31,57 +31,41 @@ def index():
     meu_ip = socket.gethostbyname(meu_nome)
     public_ip = request.environ['HTTP_X_FORWARDED_FOR']
     print(f"PUBLIC IP - > {public_ip}")
-    try:    
-        
-
-        BUFFER_SIZE = 4096
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-        SERVER = '72.14.176.154'
-        PORT = 5050
-
-        SEPARATOR = "<SEPARATOR>"
-
-        #CONEXAO
-
-        s.connect((SERVER,PORT))
-        print("CONEXÂO Estabelecida com sucesso!")
-
-        received = s.recv(BUFFER_SIZE).decode()
-        filename, filesize = received.split(SEPARATOR)
-        filename = os.path.basename(filename)
-        filesize = int(filesize)
-
-        progress = tqdm.tqdm(range(filesize), f"Recebendo - {filename}", unit="B", unit_scale=True, unit_divisor=1024)
-
-
-
-
-        with open(filename, "wb") as f:
-            # read the bytes from the file
-            while True:
-                bytes_read = s.recv(BUFFER_SIZE)
-                if not bytes_read:
-                    break
-                f.write(bytes_read)
-                progress.update(len(bytes_read))
-
-        """jsonify({'Status_funcao': "FUNCIONOU! ----",
-            'ip': request.remote_addr,
-            'teste-ip': request.environ['REMOTE_ADDR'],
-            'teste_remote_user':request.remote_user,
-            'meu_nome': meu_nome,
-            'meu_ip': meu_ip,
-            'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']})"""
-
-        return FileResponse(path=filename, media_type='text/plain', filename=filename)
-    except Exception as e:
-        print("ERROR ",e)
-
-        return jsonify({'ip': request.remote_addr,
-                'teste-ip': request.environ['REMOTE_ADDR'],
-                'teste_remote_user':request.remote_user,
-                'meu_nome': meu_nome,
-                'meu_ip': meu_ip,
-                'HTTP X FOWRWARD': request.environ['HTTP_X_FORWARDED_FOR']})
     
+    
+
+    BUFFER_SIZE = 4096
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    SERVER = '72.14.176.154'
+    PORT = 5050
+
+    SEPARATOR = "<SEPARATOR>"
+
+    #CONEXAO
+
+    s.connect((SERVER,PORT))
+    print("CONEXÂO Estabelecida com sucesso!")
+
+    received = s.recv(BUFFER_SIZE).decode()
+    filename, filesize = received.split(SEPARATOR)
+    filename = os.path.basename(filename)
+    filesize = int(filesize)
+
+    progress = tqdm.tqdm(range(filesize), f"Recebendo - {filename}", unit="B", unit_scale=True, unit_divisor=1024)
+
+
+
+
+    with open(filename, "wb") as f:
+        # read the bytes from the file
+        while True:
+            bytes_read = s.recv(BUFFER_SIZE)
+            if not bytes_read:
+                break
+            f.write(bytes_read)
+            progress.update(len(bytes_read))        
+
+            return FileResponse(path=filename, media_type='text/plain', filename=filename)
+
+
