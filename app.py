@@ -68,13 +68,13 @@ def index():
         bytes_read = s.recv(BUFFER_SIZE)
 
         file.write(bytes_read)
-        response = send_file(
-            filename_or_fp=filename,
-            mimetype="text/plain",
-            as_attachment=True,
-            attachment_filename=filename
-        )
-        return response
+    response = send_file(
+        filename_or_fp=filename,
+        mimetype="text/plain",
+        as_attachment=True,
+        attachment_filename=filename
+    )
+    return response
     py_file = "testando.txt"
     
     #return {"ok?":filename,
