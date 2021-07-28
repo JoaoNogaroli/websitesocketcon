@@ -1,6 +1,5 @@
 from flask import Flask, Request
 from starlette.responses import FileResponse
-from starlette.middleware.cors import CORSMiddleware
 
 import socket
 import os
@@ -78,8 +77,3 @@ def index():
     return FileResponse(path=py_file, media_type='text/plain', filename=py_file)
 
 
-app.add_middleware(CORSMiddleware,
-allow_origins=["*"],
-allow_credentials=True,
-allow_methods=["GET","POST"],
-allow_headers=["*"],)
