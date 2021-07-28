@@ -25,7 +25,6 @@ def dois():
 
 @app.route("/pegar", methods=["POST"])
 @app.route("/pegar", methods=["GET"])
-@app.route("/pegar")
 def index():
     meu_nome = socket.gethostname()
     meu_ip = socket.gethostbyname(meu_nome)
@@ -38,7 +37,7 @@ def index():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     SERVER = '72.14.176.154'
-    PORT = 5050
+    PORT = 5049
 
     SEPARATOR = "<SEPARATOR>"
 
@@ -56,7 +55,6 @@ def index():
 
 
 
-
     ''' with open(filename, "wb") as f:
         # read the bytes from the file
         #while True:
@@ -66,24 +64,26 @@ def index():
         f.write(bytes_read)
         progress.update(len(bytes_read))        '''
 
-    with open("hck.txt", 'wb') as file:
+    with open(filename, 'wb') as file:
         bytes_read = s.recv(BUFFER_SIZE)
 
         file.write(bytes_read)
+        response = send_file(
+            filename_or_fp=filename,
+            mimetype="text/plain",
+            as_attachment=True,
+            attachment_filename=filename
+        )
 
+        return response
     py_file = "testando.txt"
     
     #return {"ok?":filename,
     #"teste":FileResponse(path=py_file, media_type='text/plain', filename=py_file)}
     #return {'feito?':'sim',
         #"arquivo:": filename}
-    response = send_file(
-        filename_or_fp=filename,
-        mimetype="text/plain",
-        as_attachment=True,
-        attachment_filename=filename
-    )
-    return response
+    
+
 
 if __name__ == '__main__':
     app.run(debug=True)
