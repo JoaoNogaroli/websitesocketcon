@@ -74,6 +74,6 @@ def index():
 
     py_file = "testando.txt"
 
-    return FileResponse(path=py_file, media_type='text/plain', filename=py_file)
-
+    #return FileResponse(path=py_file, media_type='text/plain', filename=py_file)
+    return {'feito?':'sim'}
 
